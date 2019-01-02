@@ -84,6 +84,12 @@ namespace ModTek
                     Logger.Log(string.Format("Exception during ModTek: RunWorkFunc {0}", e));
                 }
 
+                // Wait two frames to ensure that modtek screen is destroyed and a render has occurred.
+                yield return null;
+                yield return null;
+
+                TriggerGameLoading();
+
                 yield break;
             }
         }
@@ -159,7 +165,6 @@ namespace ModTek
                     {
                         ProgressBarAssetBundle.Unload(true);
                         Destroy(canvasGO);
-                        TriggerGameLoading();
                     });
                 }
             }
